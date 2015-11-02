@@ -25,7 +25,7 @@ public class InputCell extends Cell{
                     this.nextStatus = Status.FREE;
                 else{
                     this.nextStatus = Status.BUSY;
-                    numCarsAwaiting--;
+                    numCarsAwaiting -=1;
                 }
             }else
                 this.nextStatus = this.currentStatus;
@@ -34,7 +34,7 @@ public class InputCell extends Cell{
                 this.nextStatus = this.currentStatus;
             else{
                 this.nextStatus = Status.BUSY;
-                this.numCarsAwaiting--;
+                this.numCarsAwaiting-=1;
             }
         }
     }
