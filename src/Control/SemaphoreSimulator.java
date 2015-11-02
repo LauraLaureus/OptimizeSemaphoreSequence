@@ -22,8 +22,7 @@ public class SemaphoreSimulator {
     }
 
     public static double maine(double[][] d) {
-        System.out.println("Hola, desde Java.Vamos a probar como vienen los parámetros.");
-
+        
         boolean[][] result = new boolean[d.length][d[0].length];
         for (int i = 0; i < result.length; i++) {
             for (int j = 0; j < result[0].length; j++) {
@@ -31,7 +30,6 @@ public class SemaphoreSimulator {
                     result[i][j] = true;
                 else
                     result[i][j] = false;
-                //System.out.println(result[i][j] +" ");
             }
         }
         
