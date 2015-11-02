@@ -15,8 +15,7 @@ public class CommonCell extends Cell {
     public void determineNextStatus() {
         if(
                 (this.currentStatus == Status.FREE && neighbours.get(0).currentStatus == Status.BUSY) ||
-                (this.currentStatus == Status.BUSY && neighbours.get(1).currentStatus == Status.BUSY) ||
-                (this.currentStatus == Status.BUSY && neighbours.get(0).currentStatus == Status.BUSY &&neighbours.get(1).currentStatus == Status.FREE)
+                (this.currentStatus == Status.BUSY && neighbours.get(1).currentStatus == Status.BUSY) 
           )
             this.nextStatus = Status.BUSY;
         else
