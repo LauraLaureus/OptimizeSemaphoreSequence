@@ -16,7 +16,7 @@ for i=1:numIteraciones
     tabla_de_emparejamientos_simple = emparejar(seleccion);
     vector_tercer_padre = encuentra_al_tercer_padre(tabla_de_emparejamientos_simple);
     Pop = cruce_del_tercer_padre(seleccion,tabla_de_emparejamientos_simple,vector_tercer_padre);
-    Pop = mutacion(1/numIteraciones,Pop);
+    Pop = mutacion(1/i,Pop);
     
     %max_fitnesses=[ max_fitnesses max(fitnesses)];
     %mean_fitnesses = [mean_fitnesses mean(fitnesses)];
