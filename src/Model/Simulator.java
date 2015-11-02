@@ -30,7 +30,7 @@ public class Simulator {
             
             if (i % 10 == 0) {
                 //System.out.println(i/2);
-                boolean[] thisTime = semaphoreHistory[i/2];
+                boolean[] thisTime = semaphoreHistory[i%10];
                 h.sem1NextStatus(thisTime[0]);
                 v.sem1NextStatus(!thisTime[0]);
                 
