@@ -22,20 +22,19 @@ public class SemaphoreCell extends Cell{
 
     @Override
     public void determineNextStatus() {
-        if(semStatus  == SemaphoreStatus.CLOSED || semStatus == SemaphoreStatus.OPEN && neighbours.get(1).currentStatus == Status.FREE){
-            if (neighbours.get(0).currentStatus == Status.FREE)
+        if(semStatus  == SemaphoreStatus.CLOSED || semStatus == SemaphoreStatus.OPEN && neighbours.get(1).currentStatus == Status.BUSY){
+            if (this.currentStatus == Status.FREE){
+                this.nextStatus = this.neighbours.get(0).currentStatus;
+            }else{
                 this.nextStatus = this.currentStatus;
-            else
-                this.nextStatus = Status.BUSY;
-            
-        }else if (semStatus == SemaphoreStatus.OPEN && neighbours.get(1).currentStatus == Status.FREE){
-            if (neighbours.get(0).currentStatus == Status.BUSY)
-                this.nextStatus = Status.BUSY;
-            else
-                this.nextStatus = Status.FREE;
+            }
         }else{
-            this.nextStatus = Status.BUSY;
-        }   
+            if (this.currentStatus == Status.FREE){
+                this.nextStatus = this.neighbours.get(0).currentStatus;
+            }else{
+                this.nextStatus = Status.FREE;
+            }
+        }
     }
 
     @Override
