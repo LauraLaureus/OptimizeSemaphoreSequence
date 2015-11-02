@@ -26,10 +26,41 @@ public class IntersectCell extends Cell {
     @Override
     public void determineNextStatus() {
         ArrayList<Cell> interestingNeighbours = selectNeighbours();
-        if (interestingNeighbours.get(0).currentStatus == Status.BUSY) {
-            this.nextStatus = Status.BUSY;
-        } else {
-            this.nextStatus = Status.FREE;
+       //OCUPADO 1 == BUSY + !goesvertical
+        if (this.currentStatus == Status.BUSY && !this.currentGoesVertical){
+            if(this.sense == RoadSense.Horizontal){
+                if(this.neighbours.get(1).currentStatus == Status.FREE)
+                    this.nextStatus = Status.FREE;
+                else{
+                    this.nextStatus = Status.BUSY;
+                    this.nextGoesVertical = this.currentGoesVertical;
+                }
+            }else{
+                if(this.perpendicularNeighbours.get(1).currentStatus == Status.FREE)
+                    this.nextStatus = Status.FREE;
+                else{
+                    this.nextStatus = Status.BUSY;
+                    this.nextGoesVertical = false;
+                }
+            }
+        }else if (this.currentStatus == Status.BUSY && this.currentGoesVertical){
+            if (this.sense == RoadSense.Horizontal){
+                if (this.perpendicularNeighbours.get(1).currentStatus == Status.FREE){
+                    this.nextStatus = Status.FREE;
+                }else{
+                    this.nextStatus = Status.BUSY;
+                    this.nextGoesVertical = true;
+                }
+            }else{
+                if (this.neighbours.get(1).currentStatus == Status.FREE){
+                    this.nextStatus = Status.FREE;
+                }else{
+                    this.nextStatus = Status.BUSY;
+                    this.nextGoesVertical = true;
+                }
+            }
+        }else{
+            this.nextStatus = interestingNeighbours.get(0).currentStatus;
         }
 
     }
