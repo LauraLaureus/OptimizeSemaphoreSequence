@@ -21,12 +21,10 @@ public class Simulator {
     public double simulate(boolean[][] semaphoreHistory) {
 
         for (int i = 0; i < 7200; i++) {
-            if (i % 5 == 0) {
                 h.addCar();
                 h2.addCar();
                 v.addCar();
                 v2.addCar();
-            }
 
             if (i % 10 == 0) {
                 //System.out.println(i/2);
@@ -51,7 +49,7 @@ public class Simulator {
         }
 
         //5760 = 1440(num cars entered)*4roads
-        return (double) ((h.count() + v.count() + h2.count() + v2.count()) / 5760d);
+        return (double) ((h.count() + v.count() + h2.count() + v2.count()) / 28800d);
 
     }
 }

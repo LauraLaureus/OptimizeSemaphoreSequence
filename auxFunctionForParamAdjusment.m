@@ -28,4 +28,10 @@ for tam=[ 30 40 50 70 100 ]
     end
 end
 
+%% FIRST BEST PERFORMANCE PARAMS: (mean fitness >0,2 & mean performance time < 60s)
+%% tam:30 p_selection:[0.2 0.3 0.4]
+%% tam:40 p_selection:[0.3 0.9]
+%% tam:50 p_selection:[0.4]
+
+
 end
