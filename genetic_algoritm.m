@@ -12,7 +12,7 @@ Pop = round(rand(12,4,tam));
 for i=1:numIteraciones
 
     fitnesses = calculaFitness(Pop);
-    seleccion = seleccion_por_torneo_probabilistico(fitnesses,Pop,p_seleccion);
+    seleccion = seleccion_por_torneo_probabilistico(fitnesses,Pop,p_seleccion/i);
     tabla_de_emparejamientos_simple = emparejar(seleccion);
     vector_tercer_padre = encuentra_al_tercer_padre(tabla_de_emparejamientos_simple);
     Pop = cruce_del_tercer_padre(seleccion,tabla_de_emparejamientos_simple,vector_tercer_padre);

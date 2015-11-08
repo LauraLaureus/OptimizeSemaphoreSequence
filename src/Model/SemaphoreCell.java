@@ -22,7 +22,7 @@ public class SemaphoreCell extends Cell{
 
     @Override
     public void determineNextStatus() {
-        if(semStatus  == SemaphoreStatus.CLOSED || semStatus == SemaphoreStatus.OPEN && neighbours.get(1).currentStatus == Status.BUSY){
+        if(semStatus  == SemaphoreStatus.CLOSED || (semStatus == SemaphoreStatus.OPEN && neighbours.get(1).currentStatus == Status.BUSY)){
             if (this.currentStatus == Status.FREE){
                 this.nextStatus = this.neighbours.get(0).currentStatus;
             }else{

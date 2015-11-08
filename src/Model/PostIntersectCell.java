@@ -14,8 +14,10 @@ public class PostIntersectCell extends Cell {
     public void determineNextStatus() {
         
 
-        if (interesting() && this.neighbours.get(0).currentStatus == Status.BUSY 
-                && this.currentStatus == Status.FREE){
+        if ((interesting() && this.neighbours.get(0).currentStatus == Status.BUSY 
+                && this.currentStatus == Status.FREE)||
+                        (this.neighbours.get(1).currentStatus==Status.BUSY &&
+                this.neighbours.get(0).currentStatus==Status.BUSY)){
             this.nextStatus = Status.BUSY;
         }else{
             this.nextStatus = Status.FREE;
