@@ -7,6 +7,10 @@ function [max_fitnesses,mean_fitnesses] = genetic_algoritm(tam,p_seleccion,numIt
 
 max_fitnesses = [];
 mean_fitnesses =[];
+
+if(mod(tam,3) ~= 0)
+    tam = tam + (3- mod(tam,3))
+end
 Pop = round(rand(12,4,tam));
 
 for i=1:numIteraciones
