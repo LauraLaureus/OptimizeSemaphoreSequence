@@ -18,7 +18,7 @@ for i=1:numIteraciones
 
     fitnesses = calculaFitness(Pop);
     seleccion = seleccion_por_torneo_probabilistico(fitnesses,Pop,p_seleccion/i);
-    Pop = 
+    Pop = three_parent_crossover(seleccion);
     Pop = mutacion(1/i,Pop);
     
     max_fitnesses=[ max_fitnesses max(fitnesses)];
