@@ -20,13 +20,13 @@ public class Simulator {
 
     public double simulate(boolean[][] semaphoreHistory) {
 
-        double countCasrIn = 0d;
+        //double countCasrIn = 0d;
         for (int i = 0; i < 7200; i++) {
                 h.addCar();
                 h2.addCar();
                 v.addCar();
                 v2.addCar();
-                countCasrIn+=4;
+                //countCasrIn+=4;
             if (i % 10 == 0) {
                 //System.out.println(i/2);
                 boolean[] thisTime = semaphoreHistory[i % 10];
@@ -34,10 +34,10 @@ public class Simulator {
                 v.sem1NextStatus(!thisTime[0]);
 
                 h.sem2NextStatus(thisTime[1]);
-                v.sem2NextStatus(!thisTime[1]);
+                v2.sem1NextStatus(!thisTime[1]);
 
                 h2.sem1NextStatus(thisTime[2]);
-                v2.sem1NextStatus(!thisTime[2]);
+                v.sem2NextStatus(!thisTime[2]);
 
                 h2.sem2NextStatus(thisTime[3]);
                 v2.sem2NextStatus(!thisTime[3]);
@@ -50,7 +50,7 @@ public class Simulator {
         }
 
         //5760 = 1440(num cars entered)*4roads
-        return (double) ((h.count() + v.count() + h2.count() + v2.count()) / countCasrIn);
+        return (double) ((h.count() + v.count() + h2.count() + v2.count()) / 28800d);
 
     }
 }

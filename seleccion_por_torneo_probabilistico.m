@@ -18,10 +18,10 @@ for i=1:round(2*size(Pop,3)/3)
 
     if rand(1) >= p_seleccion
         seleccion(:,:,i) = Pop(:,:,max_elegidos);
-        availables = availables(availables ~= max_elegidos)
+        availables = availables(availables ~= max_elegidos);
     else
         seleccion(:,:,i) = Pop(:,:,min_elegidos);
-        availables = availables(availables ~= min_elegidos)
+        availables = availables(availables ~= min_elegidos);
     end
 end
 

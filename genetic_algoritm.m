@@ -16,7 +16,7 @@ Pop = round(rand(12,4,tam));
 
 for i=1:numIteraciones
 
-    fitnesses = calculaFitness(Pop);
+    fitnesses = calculaFitness(Pop)
     seleccion = seleccion_por_torneo_probabilistico(fitnesses,Pop,p_seleccion/i);
     Pop = three_parent_crossover(seleccion);
     Pop = mutacion(1/i,Pop);

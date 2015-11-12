@@ -7,7 +7,7 @@ x_axis = 1:numIteraciones;
 plot(x_axis,max,'r');
 hold on
 plot(x_axis,mean,'b');
-axis([0 numIteraciones 0 1]);
+axis([1 numIteraciones 0 1]);
 legend('max/generacion','media/generacion');
 
 
