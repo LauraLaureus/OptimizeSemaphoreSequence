@@ -1,6 +1,7 @@
 package Control;
 
 import Model.Simulator;
+import Model.TestSimulator;
 //import View.TestFrame;
 
 /**
@@ -13,12 +14,8 @@ public class SemaphoreSimulator {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
-        System.out.println("Hola, desde Java.Vamos a probar como vienen los parámetros.");
-        for (String arg : args) {
-            System.out.println(arg);
-        }
-
+        TestSimulator test = new TestSimulator();
+        test.test();
     }
 
     public static double maine(double[][] d) {

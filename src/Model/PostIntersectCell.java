@@ -12,7 +12,6 @@ public class PostIntersectCell extends Cell {
 
     @Override
     public void determineNextStatus() {
-        
 
         if ((interesting() && this.neighbours.get(0).currentStatus == Status.BUSY 
                 && this.currentStatus == Status.FREE)||
