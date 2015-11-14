@@ -2,6 +2,7 @@ package Control;
 
 import Model.Simulator;
 import Model.TestSimulator;
+import View.simulatorView;
 //import View.TestFrame;
 
 /**
@@ -14,8 +15,9 @@ public class SemaphoreSimulator {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        TestSimulator test = new TestSimulator();
-        test.test();
+        /*TestSimulator test = new TestSimulator();
+        test.test();*/
+        new simulatorView().setVisible(true);
     }
 
     public static double maine(double[][] d) {

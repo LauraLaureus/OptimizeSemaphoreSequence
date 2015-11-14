@@ -230,7 +230,11 @@ public class Road {
             c.update();
         }
     }
-
+    
+    public Cell getCellIn(int index){
+        return roadData.get(index);
+    }
+    
     @Override
     public String toString() {
         String s = "Road{" + "sense=" + sense;
