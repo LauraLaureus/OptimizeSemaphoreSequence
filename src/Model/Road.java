@@ -223,13 +223,13 @@ public class Road {
 
     public void determineNextStatusAndUpdate() {
         for (Cell c : roadData) {
-            if(this.sense == RoadSense.Vertical && c instanceof IntersectCell)
+            if(c instanceof IntersectCell && !isInMySense((IntersectCell)c) )
                 continue;
             c.determineNextStatus();
         }
 
         for (Cell c : roadData) {
-            if(this.sense == RoadSense.Vertical && c instanceof IntersectCell)
+            if(c instanceof IntersectCell && !isInMySense((IntersectCell)c))
                 continue;
             c.update();
         }
@@ -237,6 +237,14 @@ public class Road {
     
     public Cell getCellIn(int index){
         return roadData.get(index);
+    }
+    
+    private boolean isInMySense(IntersectCell i){
+        if(this.sense == RoadSense.Vertical && i.currentGoesVertical)
+            return true;
+        if(this.sense == RoadSense.Horizontal && !i.currentGoesVertical)
+            return true;
+        return false;
     }
     
     @Override

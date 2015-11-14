@@ -26,7 +26,7 @@ public class SemaphoreCell extends Cell{
             if (this.currentStatus == Status.FREE){
                 this.nextStatus = this.neighbours.get(0).currentStatus;
             }else{
-                this.nextStatus = this.currentStatus;
+                this.nextStatus = Status.BUSY;
             }
         }else{
             if (this.currentStatus == Status.FREE){

@@ -26,31 +26,24 @@ public class IntersectCell extends Cell {
     @Override
     public void determineNextStatus() {
         if (this.currentStatus == Status.BUSY) {
-            if (!currentGoesVertical) {
-                if (neighbours.get(1).currentStatus == Status.BUSY) {
+            if (!currentGoesVertical) { //OCUPADO1
+                if (neighbours.get(1).currentStatus == Status.FREE) {
+                    this.nextStatus = Status.FREE;
+                } else {
                     this.nextStatus = Status.BUSY;
                     this.nextGoesVertical = false;
-                } else {
-                    this.nextStatus = Status.FREE;
-                    selectNeighbours();
                 }
-            } else {
-                if (perpendicularNeighbours.get(1).currentStatus == Status.BUSY) {
+            } else {//OCUPADO2
+                if (perpendicularNeighbours.get(1).currentStatus == Status.FREE) {
+                    this.nextStatus = Status.FREE;
+                } else {
                     this.nextStatus = Status.BUSY;
                     this.nextGoesVertical = true;
-                }else{
-                    this.nextStatus = Status.FREE;
-                    selectNeighbours();
                 }
             }
-        }
-        else{
+        } else {
             ArrayList<Cell> interestingNeighbours = selectNeighbours();
-            if(interestingNeighbours.get(0).currentStatus == Status.FREE){
-                this.nextStatus = Status.FREE;
-            }else{
-                this.nextStatus = Status.BUSY;
-            }
+            this.nextStatus = interestingNeighbours.get(0).currentStatus;
         }
     }
 
@@ -65,8 +58,7 @@ public class IntersectCell extends Cell {
             this.nextGoesVertical = true;
         }
 
-        this.nextGoesVertical = result.get(0).sense == RoadSense.Vertical;
-
+        //this.nextGoesVertical = result.get(0).sense == RoadSense.Vertical;
         return result;
     }
 
