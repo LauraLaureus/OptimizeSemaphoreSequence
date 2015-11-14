@@ -223,10 +223,14 @@ public class Road {
 
     public void determineNextStatusAndUpdate() {
         for (Cell c : roadData) {
+            if(this.sense == RoadSense.Vertical && c instanceof IntersectCell)
+                continue;
             c.determineNextStatus();
         }
 
         for (Cell c : roadData) {
+            if(this.sense == RoadSense.Vertical && c instanceof IntersectCell)
+                continue;
             c.update();
         }
     }

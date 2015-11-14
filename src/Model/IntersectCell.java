@@ -25,57 +25,48 @@ public class IntersectCell extends Cell {
 
     @Override
     public void determineNextStatus() {
-        ArrayList<Cell> interestingNeighbours = selectNeighbours();
-       //OCUPADO 1 == BUSY + !goesvertical
-        if (this.currentStatus == Status.BUSY && !this.currentGoesVertical){
-            if(this.sense == RoadSense.Horizontal){
-                if(this.neighbours.get(1).currentStatus == Status.FREE)
-                    this.nextStatus = Status.FREE;
-                else{
-                    this.nextStatus = Status.BUSY;
-                    this.nextGoesVertical = this.currentGoesVertical;
-                }
-            }else{
-                if(this.perpendicularNeighbours.get(1).currentStatus == Status.FREE)
-                    this.nextStatus = Status.FREE;
-                else{
+        if (this.currentStatus == Status.BUSY) {
+            if (!currentGoesVertical) {
+                if (neighbours.get(1).currentStatus == Status.BUSY) {
                     this.nextStatus = Status.BUSY;
                     this.nextGoesVertical = false;
-                }
-            }
-        }else if (this.currentStatus == Status.BUSY && this.currentGoesVertical){
-            if (this.sense == RoadSense.Horizontal){
-                if (this.perpendicularNeighbours.get(1).currentStatus == Status.FREE){
+                } else {
                     this.nextStatus = Status.FREE;
-                }else{
+                    selectNeighbours();
+                }
+            } else {
+                if (perpendicularNeighbours.get(1).currentStatus == Status.BUSY) {
                     this.nextStatus = Status.BUSY;
                     this.nextGoesVertical = true;
-                }
-            }else{
-                if (this.neighbours.get(1).currentStatus == Status.FREE){
-                    this.nextStatus = Status.FREE;
                 }else{
-                    this.nextStatus = Status.BUSY;
-                    this.nextGoesVertical = true;
+                    this.nextStatus = Status.FREE;
+                    selectNeighbours();
                 }
             }
-        }else{
-            this.nextStatus = interestingNeighbours.get(0).currentStatus;
         }
-
+        else{
+            ArrayList<Cell> interestingNeighbours = selectNeighbours();
+            if(interestingNeighbours.get(0).currentStatus == Status.FREE){
+                this.nextStatus = Status.FREE;
+            }else{
+                this.nextStatus = Status.BUSY;
+            }
+        }
     }
 
     private ArrayList<Cell> selectNeighbours() {
-        SemaphoreCell thisSenseSem = (SemaphoreCell) this.neighbours.get(0);
+        SemaphoreCell horizontalSem = (SemaphoreCell) this.neighbours.get(0);
         ArrayList<Cell> result;
-        if (thisSenseSem.semStatus == SemaphoreStatus.OPEN) {
+        if (horizontalSem.semStatus == SemaphoreStatus.OPEN) {
             result = this.neighbours;
+            this.nextGoesVertical = false;
         } else {
             result = this.perpendicularNeighbours;
+            this.nextGoesVertical = true;
         }
 
         this.nextGoesVertical = result.get(0).sense == RoadSense.Vertical;
-        
+
         return result;
     }
 
