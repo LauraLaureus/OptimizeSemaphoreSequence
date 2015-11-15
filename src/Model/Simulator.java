@@ -10,6 +10,7 @@ public class Simulator {
     private final Road h2 = new Road(RoadSense.Horizontal);
     private final Road v = new Road(RoadSense.Vertical);
     private final Road v2 = new Road(RoadSense.Vertical);
+    //añadir el simulate updator
 
     public Simulator() {
         h.intersectRoads(v, 1, 1);
@@ -20,15 +21,12 @@ public class Simulator {
 
     public double simulate(boolean[][] semaphoreHistory) {
 
-        //double countCasrIn = 0d;
         for (int i = 0; i < 7200; i++) {
                 h.addCar();
                 h2.addCar();
                 v.addCar();
                 v2.addCar();
-                //countCasrIn+=4;
             if (i % 10 == 0) {
-                //System.out.println(i/2);
                 boolean[] thisTime = semaphoreHistory[i % 10];
                 h.sem1NextStatus(thisTime[0]);
                 v.sem1NextStatus(!thisTime[0]);
@@ -43,14 +41,82 @@ public class Simulator {
                 v2.sem2NextStatus(!thisTime[3]);
             }
 
-            h.determineNextStatusAndUpdate();
-            h2.determineNextStatusAndUpdate();
-            v.determineNextStatusAndUpdate();
-            v2.determineNextStatusAndUpdate();
+            
+            updateSimulator();
         }
 
-        //5760 = 1440(num cars entered)*4roads
         return (double) ((h.count() + v.count() + h2.count() + v2.count()) / 28800d);
 
+    }
+    
+    private void updateSimulator(){
+        h.determineNextStatusInRange(0, 3);//a
+        h.updateInRange(0, 2);
+        v.determineNextStatusInRange(0, 3);//b
+        v.updateInRange(0, 2);
+        v2.determineNextStatusInRange(0, 3); //c
+        v2.updateInRange(0, 2);
+        h2.determineNextStatusInRange(0, 3); //h
+        h2.updateInRange(0, 2);
+        
+        //First intersection TOP+LEFT
+        if(h.sem1.semStatus == SemaphoreStatus.OPEN){
+            h.determineNextStatusInRange(4, 8); //j
+            h.updateInRange(3,7);
+            v.determineNextStatusInRange(5, 8); //i
+            v.updateInRange(3, 3);
+            v.updateInRange(5, 7);
+        }else{
+            v.determineNextStatusInRange(4, 8); //i
+            v.updateInRange(3, 7);
+            h.determineNextStatusInRange(5, 8); //j
+            h.updateInRange(3, 3);
+            h.updateInRange(5, 7);
+        }
+        
+        //TOP+RIGHT
+        if(h.sem2.semStatus == SemaphoreStatus.OPEN){
+            h.determineNextStatusInRange(9, 13); //d
+            h.updateInRange(8, 13);
+            v2.determineNextStatusInRange(5, 8); //k
+            v2.updateInRange(3, 3);
+            v2.updateInRange(5, 7);
+        }else{
+            v2.determineNextStatusInRange(4, 8);//k
+            v2.updateInRange(3, 7);
+            h.determineNextStatusInRange(10, 13); //d
+            h.updateInRange(8, 8);
+            h.updateInRange(10, 13);
+        }
+    
+        //BOTTOM LEFT
+        if(h2.sem1.semStatus == SemaphoreStatus.OPEN){
+            h2.determineNextStatusInRange(4, 8);
+            h2.updateInRange(3, 7);
+            v.determineNextStatusInRange(10, 13);
+            v.updateInRange(8,8);
+            v.updateInRange(10, 13);
+        }else{
+            v.determineNextStatusInRange(9, 13);
+            v.updateInRange(8, 13);
+            h2.determineNextStatusInRange(5, 8);
+            h2.updateInRange(3, 3);
+            h2.updateInRange(5, 7);
+        }
+        
+        //BOTTOM RIGHT
+        if(h2.sem2.semStatus == SemaphoreStatus.OPEN){
+            h2.determineNextStatusInRange(9, 13);
+            h2.updateInRange(8, 13);
+            v2.determineNextStatusInRange(10, 13);
+            v2.updateInRange(8, 8);
+            v2.updateInRange(10, 13);
+        }else{
+            v2.determineNextStatusInRange(9, 13);
+            v2.updateInRange(8, 13);
+            h2.determineNextStatusInRange(10, 13);
+            h2.updateInRange(8, 8);
+            h2.updateInRange(10, 13);
+        }
     }
 }

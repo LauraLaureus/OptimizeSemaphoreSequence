@@ -3,6 +3,7 @@ package View;
 import Model.Cell;
 import Model.Road;
 import Model.RoadSense;
+import Model.SemaphoreStatus;
 import Model.Status;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -607,10 +608,11 @@ public class simulatorView extends javax.swing.JFrame {
     }
 
     private void roadDataUpdate() {
-        h.determineNextStatusAndUpdate();
-        h2.determineNextStatusAndUpdate();
-        v.determineNextStatusAndUpdate();
-        v2.determineNextStatusAndUpdate();
+        //h.determineNextStatusAndUpdate();
+        //h2.determineNextStatusAndUpdate();
+        //v.determineNextStatusAndUpdate();
+        //v2.determineNextStatusAndUpdate();
+        updateSimulator();
     }
 
     private void addCarsToDataRoads() {
@@ -694,5 +696,77 @@ public class simulatorView extends javax.swing.JFrame {
         v.sem2NextStatus(!false);
         v2.sem1NextStatus(!false);
         v2.sem2NextStatus(!false);
+    }
+    
+    //RECUERDA ELIMINARME :)
+     private void updateSimulator(){
+        h.determineNextStatusInRange(0, 3);//a
+        h.updateInRange(0, 2);
+        v.determineNextStatusInRange(0, 3);//b
+        v.updateInRange(0, 2);
+        v2.determineNextStatusInRange(0, 3); //c
+        v2.updateInRange(0, 2);
+        h2.determineNextStatusInRange(0, 3); //h
+        h2.updateInRange(0, 2);
+        
+        //First intersection TOP+LEFT
+        if(h.sem1.semStatus == SemaphoreStatus.OPEN){
+            h.determineNextStatusInRange(4, 8); //j
+            h.updateInRange(3,7);
+            v.determineNextStatusInRange(5, 8); //i
+            v.updateInRange(3, 3);
+            v.updateInRange(5, 7);
+        }else{
+            v.determineNextStatusInRange(4, 8); //i
+            v.updateInRange(3, 7);
+            h.determineNextStatusInRange(5, 8); //j
+            h.updateInRange(3, 3);
+            h.updateInRange(5, 7);
+        }
+        
+        //TOP+RIGHT
+        if(h.sem2.semStatus == SemaphoreStatus.OPEN){
+            h.determineNextStatusInRange(9, 13); //d
+            h.updateInRange(8, 13);
+            v2.determineNextStatusInRange(5, 8); //k
+            v2.updateInRange(3, 3);
+            v2.updateInRange(5, 7);
+        }else{
+            v2.determineNextStatusInRange(4, 8);//k
+            v2.updateInRange(3, 7);
+            h.determineNextStatusInRange(10, 13); //d
+            h.updateInRange(8, 8);
+            h.updateInRange(10, 13);
+        }
+    
+        //BOTTOM LEFT
+        if(h2.sem1.semStatus == SemaphoreStatus.OPEN){
+            h2.determineNextStatusInRange(4, 8);
+            h2.updateInRange(3, 7);
+            v.determineNextStatusInRange(10, 13);
+            v.updateInRange(8,8);
+            v.updateInRange(10, 13);
+        }else{
+            v.determineNextStatusInRange(9, 13);
+            v.updateInRange(8, 13);
+            h2.determineNextStatusInRange(5, 8);
+            h2.updateInRange(3, 3);
+            h2.updateInRange(5, 7);
+        }
+        
+        //BOTTOM RIGHT
+        if(h2.sem2.semStatus == SemaphoreStatus.OPEN){
+            h2.determineNextStatusInRange(9, 13);
+            h2.updateInRange(8, 13);
+            v2.determineNextStatusInRange(10, 13);
+            v2.updateInRange(8, 8);
+            v2.updateInRange(10, 13);
+        }else{
+            v2.determineNextStatusInRange(9, 13);
+            v2.updateInRange(8, 13);
+            h2.determineNextStatusInRange(10, 13);
+            h2.updateInRange(8, 8);
+            h2.updateInRange(10, 13);
+        }
     }
 }

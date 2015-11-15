@@ -14,8 +14,8 @@ public class Road {
     private final InputCell start;
     private final OutputCell end;
 
-    private final SemaphoreCell sem1;
-    private final SemaphoreCell sem2;
+    public final SemaphoreCell sem1;
+    public final SemaphoreCell sem2;
 
     public Road(RoadSense sense) {
 
@@ -245,6 +245,19 @@ public class Road {
         if(this.sense == RoadSense.Horizontal && !i.currentGoesVertical)
             return true;
         return false;
+    }
+    
+    //ambos inclusive!!!
+    public void determineNextStatusInRange(int i,int j){
+        for (int k = i; k <= j ; k++) {
+            roadData.get(k).determineNextStatus();
+        }
+    }
+    
+    public void updateInRange(int i, int j){
+        for (int k = i; k <= j ; k++) {
+            roadData.get(k).update();
+        }
     }
     
     @Override
