@@ -624,14 +624,14 @@ public class simulatorView extends javax.swing.JFrame {
     }
 
     private void simulationUpdate() {
-        iteration +=1;
+        iteration += 1;
         iterTextField.setText(String.valueOf(iteration));
         addCarsToDataRoads();
-        if(iteration%10== 0){
-            if(horizontalSemaphoreOpen){
+        if (iteration % 10 == 0) {
+            if (horizontalSemaphoreOpen) {
                 hSemTatusTextField.setText("OPEN");
                 determineSemaphoreStatusToOpen();
-            }else{
+            } else {
                 hSemTatusTextField.setText("CLOSED");
                 determineSemaphoreToClose();
             }
@@ -649,23 +649,23 @@ public class simulatorView extends javax.swing.JFrame {
     }
 
     private void updateCarsIn() {
-        carsInTextField.setText(String.valueOf(iteration*4));
+        carsInTextField.setText(String.valueOf(iteration * 4));
     }
 
     private void updateCarsOut() {
         int out = 0;
-        out+=h.count();
-        out+=h2.count();
-        out+=v.count();
-        out+=v2.count();
+        out += h.count();
+        out += h2.count();
+        out += v.count();
+        out += v2.count();
         carsOutTextfield.setText(String.valueOf(out));
     }
 
     private void updateProportion() {
         proptionTextField.setText(
                 String.valueOf(
-                        Float.parseFloat(carsOutTextfield.getText()) /
-                        Float.parseFloat(carsInTextField.getText())
+                        Float.parseFloat(carsOutTextfield.getText())
+                        / Float.parseFloat(carsInTextField.getText())
                 )
         );
     }
@@ -686,8 +686,8 @@ public class simulatorView extends javax.swing.JFrame {
         v2.sem1NextStatus(false);
         v2.sem2NextStatus(false);
     }
-    
-    private void determineSemaphoreToClose(){
+
+    private void determineSemaphoreToClose() {
         h.sem1NextStatus(!true);
         h.sem2NextStatus(!true);
         h2.sem1NextStatus(!true);
@@ -697,9 +697,9 @@ public class simulatorView extends javax.swing.JFrame {
         v2.sem1NextStatus(!false);
         v2.sem2NextStatus(!false);
     }
-    
+
     //RECUERDA ELIMINARME :)
-     private void updateSimulator(){
+    private void updateSimulator() {
         h.determineNextStatusInRange(0, 3);//a
         h.updateInRange(0, 2);
         v.determineNextStatusInRange(0, 3);//b
@@ -708,60 +708,60 @@ public class simulatorView extends javax.swing.JFrame {
         v2.updateInRange(0, 2);
         h2.determineNextStatusInRange(0, 3); //h
         h2.updateInRange(0, 2);
-        
+
         //First intersection TOP+LEFT
-        if(h.sem1.semStatus == SemaphoreStatus.OPEN){
+        if (h.sem1.semStatus == SemaphoreStatus.OPEN) {
             h.determineNextStatusInRange(4, 8); //j
-            h.updateInRange(3,7);
+            h.updateInRange(3, 7);
             v.determineNextStatusInRange(5, 8); //i
             v.updateInRange(3, 3);
             v.updateInRange(5, 7);
-        }else{
+        } else {
             v.determineNextStatusInRange(4, 8); //i
             v.updateInRange(3, 7);
             h.determineNextStatusInRange(5, 8); //j
             h.updateInRange(3, 3);
             h.updateInRange(5, 7);
         }
-        
+
         //TOP+RIGHT
-        if(h.sem2.semStatus == SemaphoreStatus.OPEN){
+        if (h.sem2.semStatus == SemaphoreStatus.OPEN) {
             h.determineNextStatusInRange(9, 13); //d
             h.updateInRange(8, 13);
             v2.determineNextStatusInRange(5, 8); //k
             v2.updateInRange(3, 3);
             v2.updateInRange(5, 7);
-        }else{
+        } else {
             v2.determineNextStatusInRange(4, 8);//k
             v2.updateInRange(3, 7);
             h.determineNextStatusInRange(10, 13); //d
             h.updateInRange(8, 8);
             h.updateInRange(10, 13);
         }
-    
+
         //BOTTOM LEFT
-        if(h2.sem1.semStatus == SemaphoreStatus.OPEN){
+        if (h2.sem1.semStatus == SemaphoreStatus.OPEN) {
             h2.determineNextStatusInRange(4, 8);
             h2.updateInRange(3, 7);
             v.determineNextStatusInRange(10, 13);
-            v.updateInRange(8,8);
+            v.updateInRange(8, 8);
             v.updateInRange(10, 13);
-        }else{
+        } else {
             v.determineNextStatusInRange(9, 13);
             v.updateInRange(8, 13);
             h2.determineNextStatusInRange(5, 8);
             h2.updateInRange(3, 3);
             h2.updateInRange(5, 7);
         }
-        
+
         //BOTTOM RIGHT
-        if(h2.sem2.semStatus == SemaphoreStatus.OPEN){
+        if (h2.sem2.semStatus == SemaphoreStatus.OPEN) {
             h2.determineNextStatusInRange(9, 13);
             h2.updateInRange(8, 13);
             v2.determineNextStatusInRange(10, 13);
             v2.updateInRange(8, 8);
             v2.updateInRange(10, 13);
-        }else{
+        } else {
             v2.determineNextStatusInRange(9, 13);
             v2.updateInRange(8, 13);
             h2.determineNextStatusInRange(10, 13);
