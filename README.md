@@ -27,7 +27,7 @@ The inverse is created by applying the next function for every position in the c
 #Probabilistic mutation
   For a given probability of mutation and a random number which value is between 0 and 1, if random number is lower than probability of mutation then the chromosoma mutates one gen.
   
-#Langauges chosen:
+#Languages chosen:
 Java: for developing the simulator.
 MatLab: for genetic algoritm development.
 
